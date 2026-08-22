@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Am Venuela Decoration - معرض الديكورات الداخلية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap');
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8fafc;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased max-w-md mx-auto min-h-screen flex flex-col shadow-2xl relative overflow-x-hidden">
+
+    <!-- شاشة التحميل -->
+    <div id="splash-screen" class="fixed inset-0 bg-slate-900 z-50 flex flex-col items-center justify-center text-white transition-opacity duration-500">
+        <div class="w-20 h-20 bg-amber-600 rounded-2xl flex items-center justify-center shadow-xl mb-4 animate-pulse">
+            <i class="fa-solid fa-couch text-3xl"></i>
+        </div>
+        <h1 class="text-xl font-extrabold tracking-wider mb-1">Am Venuela Decoration</h1>
+        <p class="text-slate-400 text-xs">تصاميم داخلية ولمسات عصرية ساحرة</p>
+    </div>
+
+    <!-- رأس التطبيق -->
+    <header class="bg-slate-900 text-white p-4 sticky top-0 z-30 shadow-md flex justify-between items-center">
+        <div class="flex items-center space-x-3 space-x-reverse">
+            <div class="w-10 h-10 bg-amber-600 rounded-xl flex items-center justify-center shadow">
+                <i class="fa-solid fa-gem text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-sm leading-tight">Am Venuela Decoration</h1>
+                <span class="text-[10px] text-amber-400 font-medium">الخليل - رأس طلعة ادعيس</span>
+            </div>
+        </div>
+        <div class="flex items-center space-x-2 space-x-reverse">
+            <button onclick="switchTab('cart')" class="relative p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition">
+                <i class="fa-solid fa-cart-shopping text-amber-400"></i>
+                <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold hidden">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- محتوى التطبيق الرئيسي -->
+    <main id="main-content" class="flex-1 pb-24 overflow-y-auto">
+        
+        <!-- 1. الرئيسية -->
+        <section id="tab-home" class="p-4 space-y-6">
+            <div class="relative bg-gradient-to-r from-slate-900 to-amber-950 rounded-2xl p-6 text-white shadow-lg overflow-hidden">
+                <div class="relative z-10 space-y-2">
+                    <span class="bg-amber-600 text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full font-bold">Am Venuela</span>
+                    <h2 class="text-xl font-extrabold leading-tight">أحدث عينات الديكور الداخلي والبدائل</h2>
+                    <p class="text-xs text-slate-300">متوفر التوصيل لكافة مناطق الضفة والداخل المحتل أو الاستلام المباشر من المعرض.</p>
+                    <button onclick="switchTab('shop')" class="mt-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow">
+                        تصفح المعرض والكميات
+                    </button>
+                </div>
+                <div class="absolute -left-6 -bottom-6 opacity-20 text-8xl text-amber-400">
+                    <i class="fa-solid fa-house-chimney"></i>
+                </div>
+            </div>
+
+            <!-- التصنيفات -->
+            <div>
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="font-bold text-slate-900 text-sm">التصنيفات الرئيسية</h3>
+                    <button onclick="switchTab('shop')" class="text-xs text-amber-600 font-semibold hover:underline">عرض الكل</button>
+                </div>
+                <div class="grid grid-cols-4 gap-2 text-center">
+                    <div onclick="filterCategory('بديل الخشب')" class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center cursor-pointer hover:border-amber-500 transition">
+                        <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center mb-1 text-sm"><i class="fa-solid fa-tree"></i></div>
+                        <span class="text-[11px] font-semibold text-slate-700">بديل الخشب</span>
+                    </div>
+                    <div onclick="filterCategory('بديل الرخام')" class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center cursor-pointer hover:border-amber-500 transition">
+                        <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center mb-1 text-sm"><i class="fa-solid fa-gem"></i></div>
+                        <span class="text-[11px] font-semibold text-slate-700">بديل الرخام</span>
+                    </div>
+                    <div onclick="filterCategory('بانوهات')" class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center cursor-pointer hover:border-amber-500 transition">
+                        <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center mb-1 text-sm"><i class="fa-solid fa-border-all"></i></div>
+                        <span class="text-[11px] font-semibold text-slate-700">بانوهات</span>
+                    </div>
+                    <div onclick="filterCategory('شيبورد')" class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center cursor-pointer hover:border-amber-500 transition">
+                        <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center mb-1 text-sm"><i class="fa-solid fa-layer-group"></i></div>
+                        <span class="text-[11px] font-semibold text-slate-700">شيبورد</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- المنتجات المميزة -->
+            <div>
+                <h3 class="font-bold text-slate-900 text-sm mb-3">عيينات الديكور المتوفرة</h3>
+                <div id="featured-products" class="grid grid-cols-2 gap-3"></div>
+            </div>
+        </section>
+
+        <!-- 2. المعرض والمنتجات مع الكميات -->
+        <section id="tab-shop" class="p-4 space-y-4 hidden">
+            <div class="flex items-center space-x-2 space-x-reverse bg-white p-2 rounded-xl shadow-sm border border-slate-100">
+                <i class="fa-solid fa-search text-slate-400 mr-2"></i>
+                <input type="text" id="search-input" oninput="searchProducts()" placeholder="ابحث عن صنف، لون، أو نوع ديكور..." class="w-full text-xs outline-none bg-transparent">
+            </div>
+
+            <!-- أزرار الفلترة -->
+            <div class="flex space-x-2 space-x-reverse overflow-x-auto hide-scrollbar pb-1 text-xs">
+                <button onclick="filterCategory('الكل')" class="category-btn bg-amber-600 text-white px-3 py-1.5 rounded-full font-medium whitespace-nowrap shadow-sm">الكل</button>
+                <button onclick="filterCategory('بديل الخشب')" class="category-btn bg-white text-slate-700 px-3 py-1.5 rounded-full font-medium whitespace-nowrap border border-slate-200">بديل الخشب</button>
+                <button onclick="filterCategory('بديل الرخام')" class="category-btn bg-white text-slate-700 px-3 py-1.5 rounded-full font-medium whitespace-nowrap border border-slate-200">بديل الرخام</button>
+                <button onclick="filterCategory('بديل الحجر')" class="category-btn bg-white text-slate-700 px-3 py-1.5 rounded-full font-medium whitespace-nowrap border border-slate-200">بديل الحجر</button>
+                <button onclick="filterCategory('بانوهات')" class="category-btn bg-white text-slate-700 px-3 py-1.5 rounded-full font-medium whitespace-nowrap border border-slate-200">بانوهات وبانيل</button>
+                <button onclick="filterCategory('شيبورد')" class="category-btn bg-white text-slate-700 px-3 py-1.5 rounded-full font-medium whitespace-nowrap border border-slate-200">شيبورد</button>
+            </div>
+
+            <!-- شبكة المنتجات -->
+            <div id="shop-products" class="grid grid-cols-2 gap-3"></div>
+        </section>
+
+        <!-- 3. الاستشارات الهندسية -->
+        <section id="tab-consultation" class="p-4 space-y-4 hidden">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3 space-x-reverse mb-4">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-drafting-compass"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-sm">طلب استشارة هندسية وتصميم داخلي</h3>
+                        <p class="text-[11px] text-slate-500">احصل على استشارة من خبراء التصميم في Am Venuela Decoration</p>
+                    </div>
+                </div>
+
+                <form onsubmit="submitConsultation(event)" class="space-y-3 text-xs">
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">الاسم الكامل</label>
+                        <input type="text" id="c-name" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">رقم الهاتف</label>
+                        <input type="tel" id="c-phone" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">نوع الخدمة المطلوبة</label>
+                        <select id="c-service" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-amber-500">
+                            <option>تصميم داخلي كامل (3D)</option>
+                            <option>تركيب بديل خشب / رخام</option>
+                            <option>ديكورات بانوهات وبانيل</option>
+                            <option>استشارة هندسية في المعرض</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">تفاصيل إضافية أو مساحة المشروع</label>
+                        <textarea id="c-notes" rows="3" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-amber-500" placeholder="اكتب تفاصيل المساحة والأسلوب أو الألوان المطلوبة..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl shadow transition">
+                        إرسال طلب الاستشارة
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 4. السلة واختيار طريقة الاستلام (استلام / توصيل) -->
+        <section id="tab-cart" class="p-4 space-y-4 hidden">
+            <h3 class="font-bold text-slate-900 text-sm">سلة المشتريات والعيينات المختارة</h3>
+            <div id="cart-items" class="space-y-3"></div>
+            
+            <div id="cart-summary" class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 space-y-3 hidden">
+                <!-- اختيار طريقة الاستلام -->
+                <div class="border-b pb-3 space-y-2">
+                    <label class="block font-bold text-xs text-slate-800">طريقة الاستلام أو التوصيل:</label>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center space-x-2 space-x-reverse bg-slate-50 p-2.5 rounded-xl border border-slate-200 cursor-pointer">
+                            <input type="radio" name="delivery-type" value="استلام من المعرض" checked class="text-amber-600">
+                            <span class="font-semibold">استلام من المعرض (الخليل)</span>
+                        </label>
+                        <label class="flex items-center space-x-2 space-x-reverse bg-slate-50 p-2.5 rounded-xl border border-slate-200 cursor-pointer">
+                            <input type="radio" name="delivery-type" value="توصيل للضفة والداخل" class="text-amber-600">
+                            <span class="font-semibold">توصيل للضفة والداخل</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-between text-xs font-bold text-slate-700 pt-1">
+                    <span>المجموع الكلي:</span>
+                    <span id="cart-total" class="text-amber-600 text-sm">0 ₪</span>
+                </div>
+                
+                <button onclick="checkout()" class="w-full bg-green-600 hover:bg-green-700 text-white text-xs font-bold py-3 rounded-xl shadow transition flex items-center justify-center space-x-2 space-x-reverse">
+                    <i class="fa-brands fa-whatsapp text-base"></i>
+                    <span>إرسال الطلب عبر واتساب</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 5. من نحن ومعلومات التواصل -->
+        <section id="tab-about" class="p-4 space-y-4 hidden">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-3">
+                <h3 class="font-bold text-slate-900 text-sm border-b pb-2 flex items-center space-x-2 space-x-reverse">
+                    <i class="fa-solid fa-circle-info text-amber-600"></i>
+                    <span>من نحن - Am Venuela Decoration</span>
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    معرض ومكتب Am Venuela Decoration للديكورات الداخلية في الخليل. متخصصون في أحدث صيحات الديكور العصري: بديل الخشب، بديل الرخام، بديل الحجر، الشيبورد، والبانوهات الجدارية. نوفر خدمات التوصيل السريع لكافة مناطق الضفة الغربية والداخل المحتل بالإضافة للاستلام المباشر من المعرض.
+                </p>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                <h3 class="font-bold text-slate-900 text-sm border-b pb-2 flex items-center space-x-2 space-x-reverse">
+                    <i class="fa-solid fa-location-dot text-amber-600"></i>
+                    <span>العنوان ومعلومات التواصل</span>
+                </h3>
+                
+                <div class="space-y-3 text-xs">
+                    <div class="flex items-start space-x-3 space-x-reverse">
+                        <div class="w-8 h-8 bg-amber-50 text-amber-600 rounded-lg flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-map-pin"></i></div>
+                        <div>
+                            <span class="block font-bold text-slate-800">العنوان:</span>
+                            <span class="text-slate-600">فلسطين - الخليل، رأس طلعة ادعيس، مقابل محطة مكة للمحروقات</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 space-x-reverse">
+                        <div class="w-8 h-8 bg-amber-50 text-amber-600 rounded-lg flex items-center justify-center shrink-0"><i class="fa-solid fa-phone"></i></div>
+                        <div>
+                            <span class="block font-bold text-slate-800">أرقام التواصل:</span>
+                            <div class="space-y-1 mt-0.5">
+                                <a href="tel:0595553523" class="block text-amber-600 font-bold hover:underline">0595553523</a>
+                                <a href="tel:0599291258" class="block text-amber-600 font-bold hover:underline">0599291258</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t">
+                    <span class="block font-bold text-xs text-slate-800 mb-2">تابعنا على منصات التواصل:</span>
+                    <div class="grid grid-cols-3 gap-2">
+                        <a href="https://instagram.com" target="_blank" class="flex items-center justify-center space-x-1.5 space-x-reverse bg-pink-50 text-pink-600 hover:bg-pink-100 p-2.5 rounded-xl text-xs font-bold transition">
+                            <i class="fa-brands fa-instagram text-base"></i>
+                            <span>إنستغرام</span>
+                        </a>
+                        <a href="https://tiktok.com" target="_blank" class="flex items-center justify-center space-x-1.5 space-x-reverse bg-slate-900 text-white hover:bg-slate-800 p-2.5 rounded-xl text-xs font-bold transition">
+                            <i class="fa-brands fa-tiktok text-base"></i>
+                            <span>تيك توك</span>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" class="flex items-center justify-center space-x-1.5 space-x-reverse bg-blue-50 text-blue-600 hover:bg-blue-100 p-2.5 rounded-xl text-xs font-bold transition">
+                            <i class="fa-brands fa-facebook text-base"></i>
+                            <span>فيسبوك</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- نافذة تفاصيل المنتج واختيار اللون -->
+    <div id="product-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+        <div class="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col animate-slide-up">
+            <div class="relative h-52 bg-slate-200">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+                <button onclick="closeModal()" class="absolute top-4 left-4 w-9 h-9 bg-white/80 hover:bg-white text-slate-800 rounded-full flex items-center justify-center shadow transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-5 space-y-3 overflow-y-auto">
+                <span id="modal-category" class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full"></span>
+                <h3 id="modal-title" class="font-extrabold text-slate-900 text-base"></h3>
+                <p id="modal-desc" class="text-xs text-slate-600 leading-relaxed"></p>
+                
+                <!-- خيارات الألوان والكميات المتبقية -->
+                <div class="space-y-1.5 pt-2">
+                    <label class="block font-bold text-xs text-slate-800">اختر اللون والدرجة المتاحة:</label>
+                    <div id="modal-colors-container" class="grid grid-cols-2 gap-2 text-xs">
+                        <!-- يُعبأ ديناميكياً -->
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-3 border-t">
+                    <div>
+                        <span id="modal-price" class="text-base font-extrabold text-amber-600"></span>
+                        <span class="block text-[10px] text-slate-400" id="modal-stock-text"></span>
+                    </div>
+                    <button id="modal-add-btn" onclick="addCurrentToCart()" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-6 py-3 rounded-xl shadow transition">
+                        إضافة للسلة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة التنبيه -->
+    <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs px-4 py-2.5 rounded-xl shadow-xl z-50 hidden transition-all duration-300"></div>
+
+    <!-- الشريط السفلي للتنقل -->
+    <nav class="bg-white border-t border-slate-200 fixed bottom-0 left-0 right-0 max-w-md mx-auto z-40 flex justify-around items-center h-16 px-2 shadow-lg">
+        <button onclick="switchTab('home')" class="nav-btn flex flex-col items-center text-amber-600 transition" data-tab="home">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span class="text-[10px] font-bold mt-1">الرئيسية</span>
+        </button>
+        <button onclick="switchTab('shop')" class="nav-btn flex flex-col items-center text-slate-400 hover:text-slate-600 transition" data-tab="shop">
+            <i class="fa-solid fa-store text-lg"></i>
+            <span class="text-[10px] font-bold mt-1">المعرض</span>
+        </button>
+        <button onclick="switchTab('consultation')" class="nav-btn flex flex-col items-center text-slate-400 hover:text-slate-600 transition" data-tab="consultation">
+            <i class="fa-solid fa-headset text-lg"></i>
+            <span class="text-[10px] font-bold mt-1">استشارات</span>
+        </button>
+        <button onclick="switchTab('about')" class="nav-btn flex flex-col items-center text-slate-400 hover:text-slate-600 transition" data-tab="about">
+            <i class="fa-solid fa-circle-info text-lg"></i>
+            <span class="text-[10px] font-bold mt-1">من نحن</span>
+        </button>
+    </nav>
+
+    <!-- جافاسكريبت وتخزين البيانات -->
+    <script>
+        // قاعدة بيانات المنتجات مع تفصيل الألوان والكميات المتبقية لكل صنف ولون
+        const products = [
+            {
+                id: 1,
+                title: "بديل خشب مضلع جداري فاخر",
+                category: "بديل الخشب",
+                price: 120,
+                unit: "للتربيعة / المتر",
+                image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&auto=format&fit=crop&q=80",
+                description: "شرائح بديل الخشب الحديثة لتزيين الجدران وإعطاء مظهر دافئ وعصري. مقاوم للرطوبة وسهل التنظيف.",
+                colors: [
+                    { name: "بلوط طبيعي (عسلي)", stock: 45 },
+                    { name: "جوز أمريكي غامق", stock: 20 },
+                    { name: "رمادي مودرن", stock: 12 },
+                    { name: "أبيض ناصع", stock: 30 }
+                ]
+            },
+            {
+                id: 2,
+                title: "بديل رخام عروق ذهبية فخمة",
+                category: "بديل الرخام",
+                price: 180,
+                unit: "للوح (122x244سم)",
+                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop&q=80",
+                description: "ألواح بديل الرخام الفاخرة، بديل مثالي للرخام الطبيعي، تناسب المغاسل، خلفيات الشاشات، والصالونات.",
+                colors: [
+                    { name: "كاريترا بعروق ذهبية", stock: 18 },
+                    { name: "ماركينا أسود بعروق بيضاء", stock: 8 },
+                    { name: "رخام رمادي إيطالي", stock: 15 }
+                ]
+            },
+            {
+                id: 3,
+                title: "بانوهات جدران كلاسيكية وبانيل",
+                category: "بانوهات",
+                price: 45,
+                unit: "للقطعة",
+                image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=600&auto=format&fit=crop&q=80",
+                description: "إطارات وبانوهات جدران جاهزة للدهان تضفي طابعاً ملكياً وفخماً على غرف الاستقبال والممرات.",
+                colors: [
+                    { name: "أبيض أساس (جاهز للدهان)", stock: 120 },
+                    { name: "ذهبي معتق فخم", stock: 35 }
+                ]
+            },
+            {
+                id: 4,
+                title: "شيبورد خشبي مطفي عالي الجودة",
+                category: "شيبورد",
+                price: 220,
+                unit: "للوح الكامل",
+                image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&auto=format&fit=crop&q=80",
+                description: "ألواح شيبورد مثالية لتصميم المطابخ الحديثة والخزائن المبتكرة بألوان عصرية متناسقة.",
+                colors: [
+                    { name: "أبيض مطفي (Silk)", stock: 25 },
+                    { name: "سنديان فاتح", stock: 14 },
+                    { name: "رمادي تفحمي (Anthracite)", stock: 9 }
+                ]
+            },
+            {
+                id: 5,
+                title: "بديل حجر طبيعي بارز الجدران",
+                category: "بديل الحجر",
+                price: 150,
+                unit: "للمتر المربع",
+                image: "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=600&auto=format&fit=crop&q=80",
+                description: "ألواح خفيفة الوزن تعطي مظهر الحجر الطبيعي الخشن للواجهات الداخلية والدفايات.",
+                colors: [
+                    { name: "حجر كريمي جيري", stock: 22 },
+                    { name: "حجر رمادي جبلي", stock: 16 }
+                ]
+            },
+            {
+                id: 6,
+                title: "بانل جداري مودرن مع ليد مخفي",
+                category: "بانوهات",
+                price: 250,
+                unit: "للقطعة",
+                image: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=600&auto=format&fit=crop&q=80",
+                description: "تنسيق هندسي رائع يدمج بديل الخشب مع خطوط الإضاءة المخفية لإطلالة مستقبلية رائعة.",
+                colors: [
+                    { name: "خشبي فاتح بإضاءة دافئة", stock: 10 },
+                    { name: "أسود فاحم بإضاءة صفراء", stock: 7 }
+                ]
+            }
+        ];
+
+        let cart = [];
+        let selectedProduct = null;
+        let selectedColorIndex = 0;
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(() => splash.remove(), 500);
+            }, 800);
+            renderProducts(products);
+            renderFeatured();
+        });
+
+        function switchTab(tabId) {
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-amber-600');
+                btn.classList.add('text-slate-400');
+                if(btn.getAttribute('data-tab') === tabId) {
+                    btn.classList.add('text-amber-600');
+                    btn.classList.remove('text-slate-400');
+                }
+            });
+
+            if(tabId === 'cart') renderCart();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderProducts(list) {
+            const container = document.getElementById('shop-products');
+            if(list.length === 0) {
+                container.innerHTML = `<div class="col-span-2 text-center py-10 text-xs text-slate-400">لا توجد منتجات مطابقة للبحث</div>`;
+                return;
+            }
+            container.innerHTML = list.map(p => `
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between group cursor-pointer hover:shadow-md transition" onclick="openModal(${p.id})">
+                    <div class="relative h-36 bg-slate-100 overflow-hidden">
+                        <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        <span class="absolute top-2 right-2 bg-slate-900/70 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded-full">${p.category}</span>
+                    </div>
+                    <div class="p-3 flex flex-col justify-between flex-1">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs mb-1 line-clamp-1">${p.title}</h4>
+                            <span class="text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded font-semibold inline-block mb-1">ألوان متعددة متاحة</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-auto pt-2 border-t border-slate-50">
+                            <span class="text-xs font-extrabold text-amber-600">${p.price} ₪</span>
+                            <span class="text-[10px] text-slate-500 font-bold">اختر اللون والكمية</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFeatured() {
+            const container = document.getElementById('featured-products');
+            const featured = products.slice(0, 4);
+            container.innerHTML = featured.map(p => `
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between cursor-pointer hover:shadow-md transition" onclick="openModal(${p.id})">
+                    <div class="relative h-32 bg-slate-100">
+                        <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-bold text-slate-900 text-xs mb-1 line-clamp-1">${p.title}</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs font-extrabold text-amber-600">${p.price} ₪</span>
+                            <span class="text-[10px] text-slate-400">${p.unit}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterCategory(cat) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-600', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+                if(btn.textContent.includes(cat) || (cat === 'الكل' && btn.textContent === 'الكل')) {
+                    btn.classList.add('bg-amber-600', 'text-white', 'shadow-sm');
+                    btn.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+                }
+            });
+
+            if(cat === 'الكل') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category.includes(cat));
+                renderProducts(filtered);
+            }
+        }
+
+        function searchProducts() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = products.filter(p => 
+                p.title.toLowerCase().includes(query) || 
+                p.category.toLowerCase().includes(query) || 
+                p.description.toLowerCase().includes(query) ||
+                p.colors.some(c => c.name.toLowerCase().includes(query))
+            );
+            renderProducts(filtered);
+        }
+
+        function openModal(id) {
+            selectedProduct = products.find(item => item.id === id);
+            if(!selectedProduct) return;
+            selectedColorIndex = 0;
+
+            document.getElementById('modal-img').src = selectedProduct.image;
+            document.getElementById('modal-category').innerText = selectedProduct.category;
+            document.getElementById('modal-title').innerText = selectedProduct.title;
+            document.getElementById('modal-desc').innerText = selectedProduct.description;
+            document.getElementById('modal-price').innerText = `${selectedProduct.price} ₪ (${selectedProduct.unit})`;
+
+            renderModalColors();
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function renderModalColors() {
+            const container = document.getElementById('modal-colors-container');
+            container.innerHTML = selectedProduct.colors.map((c, idx) => `
+                <div onclick="selectColor(${idx})" class="p-2.5 rounded-xl border cursor-pointer transition flex flex-col justify-between ${selectedColorIndex === idx ? 'border-amber-600 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}">
+                    <span class="font-bold text-slate-800">${c.name}</span>
+                    <span class="text-[10px] text-slate-500 mt-1">المتبقي: <strong class="${c.stock < 10 ? 'text-red-600' : 'text-green-600'}">${c.stock}</strong> وحدة</span>
+                </div>
+            `).join('');
+        }
+
+        function selectColor(idx) {
+            selectedColorIndex = idx;
+            renderModalColors();
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        function addCurrentToCart() {
+            if(!selectedProduct) return;
+            const chosenColor = selectedProduct.colors[selectedColorIndex];
+            
+            const cartItemId = `${selectedProduct.id}-${chosenColor.name}`;
+            const existing = cart.find(item => item.cartItemId === cartItemId);
+            
+            if(existing) {
+                if(existing.qty < chosenColor.stock) {
+                    existing.qty += 1;
+                    showToast("تم تحديث الكمية في السلة");
+                } else {
+                    showToast("عذراً، الكمية المطلوبة تتجاوز المتبقي بالمخزون");
+                    return;
+                }
+            } else {
+                cart.push({
+                    cartItemId: cartItemId,
+                    id: selectedProduct.id,
+                    title: selectedProduct.title,
+                    price: selectedProduct.price,
+                    image: selectedProduct.image,
+                    colorName: chosenColor.name,
+                    maxStock: chosenColor.stock,
+                    qty: 1
+                });
+                showToast("تمت الإضافة بنجاح إلى السلة");
+            }
+
+            updateCartBadge();
+            closeModal();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            if(totalCount > 0) {
+                badge.innerText = totalCount;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2000);
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            const summary = document.getElementById('cart-summary');
+            
+            if(cart.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-8 rounded-2xl text-center space-y-3 border border-slate-100">
+                        <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mx-auto text-xl">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm">سلة المشتريات فارغة</h4>
+                        <p class="text-xs text-slate-400">تصفح المعرض وأضف العيينات والديكورات والألوان المطلوبة.</p>
+                        <button onclick="switchTab('shop')" class="bg-amber-600 text-white text-xs font-bold px-4 py-2 rounded-xl shadow">الانتقال للمعرض</button>
+                    </div>
+                `;
+                summary.classList.add('hidden');
+                return;
+            }
+
+            summary.classList.remove('hidden');
+            container.innerHTML = cart.map(item => `
+                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
+                    <div class="flex items-center space-x-3 space-x-reverse">
+                        <img src="${item.image}" alt="${item.title}" class="w-14 h-14 object-cover rounded-xl">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs line-clamp-1">${item.title}</h4>
+                            <span class="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-semibold block my-0.5">اللون: ${item.colorName}</span>
+                            <span class="text-xs text-amber-600 font-extrabold">${item.price} ₪</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 space-x-reverse">
+                        <button onclick="changeQty('${item.cartItemId}', -1)" class="w-7 h-7 bg-slate-100 text-slate-600 rounded-lg flex items-center justify-center font-bold text-xs">-</button>
+                        <span class="text-xs font-bold w-5 text-center">${item.qty}</span>
+                        <button onclick="changeQty('${item.cartItemId}', 1)" class="w-7 h-7 bg-slate-100 text-slate-600 rounded-lg flex items-center justify-center font-bold text-xs">+</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('cart-total').innerText = `${total} ₪`;
+        }
+
+        function changeQty(cartItemId, delta) {
+            const item = cart.find(i => i.cartItemId === cartItemId);
+            if(item) {
+                if(delta > 0 && item.qty >= item.maxStock) {
+                    showToast("عذراً، وصلت للحد الأقصى للكمية المتبقية من هذا اللون");
+                    return;
+                }
+                item.qty += delta;
+                if(item.qty <= 0) {
+                    cart = cart.filter(i => i.cartItemId !== cartItemId);
+                }
+            }
+            updateCartBadge();
+            renderCart();
+        }
+
+        function checkout() {
+            if(cart.length === 0) return;
+            const deliveryType = document.querySelector('input[name="delivery-type"]:checked').value;
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            
+            let message = `السلام عليكم، أرغب بطلب المنتجات التالية من معرض Am Venuela Decoration:\n\n`;
+            cart.forEach(item => {
+                message += `- ${item.title}\n  اللون: ${item.colorName} | الكمية: ${item.qty} | السعر: ${item.price * item.qty} ₪\n`;
+            });
+            message += `\nالمجموع الكلي: ${total} ₪\nطريقة الاستلام: ${deliveryType}\nموقعنا المطلوب للتوصيل أو الاستلام: الخليل - رأس طلعة ادعيس.`;
+
+            const phone = "0595553523";
+            const url = `https://wa.me/970${phone.substring(1)}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function submitConsultation(e) {
+            e.preventDefault();
+            const name = document.getElementById('c-name').value;
+            const phone = document.getElementById('c-phone').value;
+            const service = document.getElementById('c-service').value;
+            const notes = document.getElementById('c-notes').value;
+
+            const message = `طلب استشارة هندسية جديدة من Am Venuela Decoration:\n\nالاسم: ${name}\nالهاتف: ${phone}\nالخدمة: ${service}\nالتفاصيل: ${notes}`;
+            const targetPhone = "0595553523";
+            const url = `https://wa.me/970${targetPhone.substring(1)}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
